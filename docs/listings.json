@@ -1,6 +1,9 @@
 [
   {
     "listing": "/blog.html",
-    "items": []
+    "items": [
+      "/pages/beam_search.html",
+      "/pages/nsp.html"
+    ]
   }
 ]
