@@ -1,0 +1,6 @@
+---
+title: "test"
+# date-modified: "8/28/2024"
+image: benz.jpg
+---
+<img src="benz.jpg" style='float:left;width:200px;height:200px'>  Test Messa

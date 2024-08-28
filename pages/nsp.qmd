@@ -1,0 +1,299 @@
+---
+title: "Next Word Prediction"
+subtitle: "Sample Text to Display here"
+description: "When reading the contents of a listing, Quarto uses the metadata read from the front matter of the document or the contents of the document itself to populate the following fields for each item:"
+
+---
+
+```{python}
+import string
+from nltk.util import ngrams
+from collections import OrderedDict, defaultdict, namedtuple
+from datetime import datetime
+from tqdm import tqdm
+```
+
+```{python}
+first = True
+def loadCorpus(file_path, bi_dict, tri_dict, quad_dict, vocab_dict):
+    token = []
+    word_len = 0
+
+    with open(file_path,'r') as file:
+        lines  = [ x.strip() for x in file.readlines()]
+    lines = ['<start> '+x+' <end>' for x in lines]
+    for line in lines:
+        temp_l = line.split()
+        # print(temp_l)
+        i = 0
+        j = 0
+        
+        for word in temp_l :
+            j = 0
+            for l in word :
+                if l in '!"#$%&\'()*+,-./:;=?@[\\]^_`{|}~':
+                    if l == "'":
+                        if j+1<len(word) and word[j+1] == 's':
+                            j = j + 1
+                            continue
+                    word = word.replace(l," ")
+                    #print(j,word[j])
+                j += 1
+
+            temp_l[i] = word.lower()
+            i=i+1   
+
+        content = " ".join(temp_l)
+
+        token = content.split()
+        word_len = word_len + len(token)  
+
+        if not token:
+            continue
+
+        temp0 = list(ngrams(token,2))
+       
+        temp1 = list(ngrams(token,3))
+
+        for word in token:
+            if word not in vocab_dict:
+                vocab_dict[word] = 1
+            else:
+                vocab_dict[word]+= 1
+                
+        temp2 = list(ngrams(token,4))
+
+        for t in temp0:
+            sen = ' '.join(t)
+            bi_dict[sen] += 1
+
+        for t in temp1:
+            sen = ' '.join(t)
+            tri_dict[sen] += 1
+
+        for t in temp2:
+            sen = ' '.join(t)
+            quad_dict[sen] += 1
+
+        n = len(token)
+           
+    return word_len
+```
+
+```{python}
+first = True
+def createKNDict(ngram_dict, n):
+
+    i = 0
+    d = 0.75
+
+    first_dict = {}
+    
+    sec_dict = {}
+    
+    for key in ngram_dict:
+        
+        ngram_token = key.split()
+       
+        n_1gram_sen = ' '.join(ngram_token[:n-1])
+         
+        if n_1gram_sen not in sec_dict:
+            sec_dict[ n_1gram_sen ] = 1
+        else:
+            sec_dict[ n_1gram_sen ] += 1
+            
+        if ngram_token[-1] not in first_dict:
+            first_dict[ ngram_token[-1] ] = 1
+        else:
+            first_dict[ ngram_token[-1] ] += 1
+    
+    return first_dict, sec_dict
+```
+
+```{python}
+first = True
+def computeKnesserNeyProb(vocab_dict, bi_dict, tri_dict, quad_dict, prob_dict ):
+        d = 0.75
+       
+        quad_first_dict, quad_sec_dict = createKNDict(quad_dict, 4)
+    
+        tri_first_dict, tri_sec_dict = createKNDict(tri_dict, 3)
+        
+        bi_first_dict, bi_sec_dict = createKNDict(bi_dict, 2)
+        # For Higher order Ngram range 4     
+        for quad in quad_dict:
+            quad_token = quad.split()
+         
+            tri_sen = ' '.join(quad_token[:-1])
+           
+            quad_prob1 = max( quad_dict[quad] - d, 0) / tri_dict[tri_sen]
+            quad_prob2 = d/tri_dict[tri_sen] * ( quad_sec_dict[tri_sen] )
+            
+            tri_prob1 = max( tri_first_dict[quad_token[-1]] - d, 0) / len(tri_dict)
+            tri_prob2 = ( d/len(tri_dict) )* ( tri_sec_dict[' '.join(quad_token[1:3])] )
+            
+            bi_prob1 = max( bi_first_dict[quad_token[-1]] - d, 0) / len(bi_dict)
+            bi_prob2 = ( d/len(bi_dict) ) * ( bi_sec_dict[quad_token[-2]])
+            uni_prob = bi_first_dict[quad_token[-1]] / len(bi_dict)
+            
+            prob = quad_prob1 + quad_prob2*( tri_prob1 + tri_prob2*( bi_prob1 + bi_prob2* uni_prob ) )
+           
+            if tri_sen not in prob_dict:
+                prob_dict[tri_sen] = []
+                prob_dict[tri_sen].append([prob,quad_token[-1]])
+            else:
+                prob_dict[tri_sen].append([prob,quad_token[-1]])
+        #for ngram range 3
+        for tri in tri_dict:
+            tri_token = tri.split()
+
+            bi_sen = " ".join(tri_token[:-1])
+            tri_prob1 = max(tri_dict[tri] -d , 0) / bi_dict[bi_sen]
+            tri_prob2 =  (d/bi_dict[bi_sen]) * (tri_sec_dict[bi_sen])
+
+            bi_prob1 = max(bi_first_dict[tri_token[-1]] -d,0)/len(bi_dict)
+            bi_prob2 = (d/len(bi_dict)) * (bi_sec_dict[tri_token[-2]])
+
+            uni_prob = bi_first_dict[tri_token[-1]]/len(bi_dict)
+            prob = tri_prob1 + tri_prob2*( bi_prob1 + bi_prob2* uni_prob )
+            if bi_sen not in prob_dict:
+                prob_dict[bi_sen] = []
+                prob_dict[bi_sen].append([prob,tri_token[-1]])
+            else:
+                prob_dict[bi_sen].append([prob,tri_token[-1]])
+        
+        #for ngram range 2        
+        for bi in bi_dict:
+            bi_token = bi.split() 
+            sen = " ".join(bi_token[:-1])
+
+            bi_prob1 = max(bi_dict[bi] - d,0)/vocab_dict[sen]
+            bi_prob2 = (d/vocab_dict[sen]) *( bi_sec_dict[bi_token[-2]])
+            
+            uni_prob = bi_first_dict[bi_token[-1]]/len(bi_dict)
+            
+            prob = bi_prob1 + bi_prob2* uni_prob
+
+            if sen not in prob_dict:
+                prob_dict[sen] = []
+                prob_dict[sen].append([prob,bi_token[-1]])
+            else:
+                prob_dict[sen].append([prob,bi_token[-1]])
+        
+        print("Completed")
+        
+def sortProbWordDict(prob_dict):
+    for key in prob_dict:
+        if len(prob_dict[key])>0:
+            prob_dict[key] = sorted(prob_dict[key],reverse = True)[:2]
+```
+
+```{python}
+first = True
+def removePunctuations(sen):
+    """
+    Funtion to remove punctuations from the given input sentence and covert them to lowercase.
+    arg: string
+    returns: string
+    """
+    temp_l = sen.split()
+    i = 0
+    j = 0
+    
+    for word in temp_l :
+        j = 0
+        #print(len(word))
+        for l in word :
+            if l in string.punctuation:
+                if l == "'":
+                    if j+1<len(word) and word[j+1] == 's':
+                        j = j + 1
+                        continue
+                word = word.replace(l," ")
+            j += 1
+
+        temp_l[i] = word.lower()
+        i=i+1   
+    content = " ".join(temp_l)
+    return content
+def doPrediction(sen, prob_dict):
+    if sen in prob_dict:
+        return prob_dict[sen]
+    else:
+        return ""
+```
+
+```{python}
+def computeKnesserNeyProb2(vocab_dict, ngram_dicts, prob_dict):
+    d = 0.75
+    interpolation = 0.4  # Adjust as needed
+
+    for order in range(2, len(ngram_dicts) + 2):
+        current_dict = ngram_dicts[order - 2]
+
+        first_dict, sec_dict = createKNDict(current_dict, order)
+
+        for ngram in tqdm(current_dict):
+            ngram_tokens = ngram.split()
+            prefix = ' '.join(ngram_tokens[:-1])
+
+            prob1 = max(current_dict[ngram] - d, 0) / sec_dict[prefix] if prefix in sec_dict else 0
+            prob2 = d / sec_dict[prefix] * (first_dict[ngram_tokens[-1]] if ngram_tokens[-1] in first_dict else 0)
+
+            for i in range(order - 2, 0, -1):
+                ngram_prefix = ' '.join(ngram_tokens[i:-1])
+                prob2 *= d / len(ngram_dicts[i - 1]) * (sec_dict[ngram_prefix] if ngram_prefix in sec_dict else 0)
+
+            prob_dict[prefix] = prob_dict.get(prefix, [])
+            prob_dict[prefix].append([(1 - interpolation) * (prob1 + prob2) + interpolation * vocab_dict[ngram_tokens[-1]] / sum(vocab_dict.values()), ngram_tokens[-1]])
+
+    print("Completed")
+```
+
+
+```{python}
+if first:
+    bi_dict = defaultdict(int)
+    tri_dict = defaultdict(int)            
+    quad_dict = defaultdict(int)   
+    vocab_dict = defaultdict(int)       
+    prob_dict = OrderedDict()         
+
+    quad_dict = defaultdict(int)   
+
+    token_len = loadCorpus("last.txt",bi_dict,tri_dict,quad_dict,vocab_dict)
+
+    computeKnesserNeyProb2(vocab_dict, [bi_dict, tri_dict, quad_dict] ,prob_dict )
+    sortProbWordDict(prob_dict)
+    first = False
+    
+def get_words(text):
+    inp_time = datetime.now()
+    if text.split() == [] and len(text.split())>0:
+        print("Input Text Found to be Empty.")
+    text = removePunctuations(text)
+    text = "<start> "+text
+    if len(text.split())>3:
+        text = text.split()
+        text = " ".join(text[-3:])
+        
+    final_words = doPrediction(text.lower(),prob_dict)
+
+    print('Word Prediction:',final_words)
+    inp_proc_time = datetime.now()
+    print('----------------------------Prediction Time :',inp_proc_time-inp_time)
+```
+
+```{python}
+get_words("Hi")
+```
+
+
+```{python}
+get_words("good Morning")
+```
+
+```{python}
+get_words("What are")
+```
+

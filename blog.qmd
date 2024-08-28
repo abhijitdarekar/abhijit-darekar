@@ -1,0 +1,12 @@
+---
+title: "Blog"
+about:
+  template: solana
+
+listing: 
+  contents: "pages/*.qmd"
+---
+
+Work done by me as a part of Learning and Expirementaions.
+
+

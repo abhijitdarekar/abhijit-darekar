@@ -1,0 +1,24 @@
+project:
+  type: website 
+  output-dir: docs
+
+website:
+  title: "Abhijit Darekar"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: blog.qmd
+        text: Blog
+
+
+format:
+  html:
+    theme: lux
+    css: styles.css
+    toc: true
+
+
+
