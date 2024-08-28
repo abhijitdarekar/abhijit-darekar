@@ -2,21 +2,31 @@ project:
   type: website 
   output-dir: docs
 
+
+
 website:
   title: "Abhijit Darekar"
+  search: false
   navbar:
+    
     left:
-      - href: index.qmd
-        text: Home
       - href: about.qmd
         text: About
       - href: blog.qmd
         text: Blog
 
+    right:
+      - href: "https://github.com/abhijitdarekar"
+        icon: github
+      - icon: code
+        href:  https://code.com
 
 format:
   html:
-    theme: lux
+    # theme: lux
+    theme:
+      light: flatly
+      dark: darkly
     css: styles.css
     toc: true
 

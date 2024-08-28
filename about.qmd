@@ -1,12 +1,32 @@
 ---
-title: "About"
-image: benz.jpg
+title: ""
+image: "pages/images/profile.png"
+toc: false
+
 about:
-  template: jolla
+  template: trestles
+  image-shape: rounded
   links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com
-    # (additional links excluded for brevity)
+    - icon: github
+      text: Github
+      href: https://github.com/abhijitdarekar
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com/in/abhijitdarekar
+    - icon: kaggle
+      text: Kaggle
+      href: https://github.com
+    - icon: envelope
+      text: Mail
+      href: https://github.com
 ---
+### About Me 
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+### Timeline
+| Role    | Company    | Duration |
+|:-------:|:-----------------------:|:----------|
+| Machine Learning Engineer   | Skycliff IT | Jan 2024 - Present |
+| Python Developer     | Tata Consultancy Service | Sep 2020 - Nov 2022 |
 
