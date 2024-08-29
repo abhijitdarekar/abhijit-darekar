@@ -8,7 +8,7 @@
 
 <meta name="author" content="Abhijit Darekar">
 <meta name="dcterms.date" content="2024-08-28">
-<meta name="description" content="When reading the contents of a listing, Quarto uses the metadata read from the front matter of the document or the contents of the document itself to populate the following fields for each item:">
+<meta name="description" content="A Simple Guide to Implement Beam Search on LSTM models for better text generation.">
 
 <title>Beam Search in LSTM – Abhijit Darekar</title>
 <style>
@@ -28,6 +28,7 @@ ul.task-list li input[type="checkbox"] {
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<link href="../pages/images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -55,6 +56,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z56QPM4BST"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -117,17 +127,17 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Beam Search in LSTM</h1>
-<p class="subtitle lead">Sample Text to Display here</p>
   <div class="quarto-categories">
-    <div class="quarto-category">Statistical Modelling</div>
-    <div class="quarto-category">Code</div>
+    <div class="quarto-category">Hands-on</div>
     <div class="quarto-category">Python</div>
+    <div class="quarto-category">Deep Learning</div>
+    <div class="quarto-category">LSTM Network</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    When reading the contents of a listing, Quarto uses the metadata read from the front matter of the document or the contents of the document itself to populate the following fields for each item:
+    A Simple Guide to Implement Beam Search on LSTM models for better text generation.
   </div>
 </div>
 
@@ -156,14 +166,14 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<br><br>
-<h2 class="anchored">
-Beam Search in LSTM
-</h2><h2 class="anchored">
+<img src="images/beam.png" class="img-fluid">
+<p style="text-align: center;">
+Image From Internet
+</p>
 
 
 
-</h2></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
