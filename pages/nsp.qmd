@@ -6,7 +6,12 @@ image: "images/word_predeiction.png"
 author: "Abhijit Darekar"
 date : 08/28/2024
 categories : ["Statistical Modelling","Code","Python"]
+
+execute: 
+  cache: true
+  enabled: true
 ---
+ 
 ![](images/word_predeiction.png)
 <p style="text-align: center;">Image From Internet</p>
 <br><br>

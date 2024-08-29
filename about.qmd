@@ -1,24 +1,30 @@
 ---
 title: ""
 image: "pages/images/profile.png"
-toc: false
+image-alt: "Some Photo"
+toc: false  
 
 about:
   template: trestles
   image-shape: rounded
+  image-width: 20em
   links:
     - icon: github
       text: Github
       href: https://github.com/abhijitdarekar
+      target: _blank
     - icon: linkedin
       text: LinkedIn
+      target: _blank
       href: https://linkedin.com/in/abhijitdarekar
     - icon: kaggle
       text: Kaggle
+      target: _blank
       href: https://github.com
     - icon: envelope
       text: Mail
-      href: https://github.com
+      target: _blank
+      href: mailto:jeetdarekar@icloud.com
 ---
 ### About Me 
 

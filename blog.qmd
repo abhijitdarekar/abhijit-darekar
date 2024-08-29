@@ -5,6 +5,7 @@ about:
 
 listing: 
   contents: "pages/*.qmd"
+  type: default
 ---
 
 Work done by me as a part of Learning and Expirementaions.
