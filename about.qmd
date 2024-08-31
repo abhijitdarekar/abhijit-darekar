@@ -1,6 +1,6 @@
 ---
 title: ""
-image: "pages/images/profilee.png"
+image: "pages/images/profile.png"
 image-alt: "Some Photo"
 toc: false  
 

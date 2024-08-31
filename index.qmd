@@ -8,7 +8,7 @@ toc: False
 ---
 ::: {.column-margin}
 
- <img src="pages/images/profilee.png" alt="Some photo" style='float:left;width:320px;height:300px;'> 
+ <img src="pages/images/profile.png" alt="Some photo" style='float:left;width:320px;height:300px;'> 
 
 :::
 
