@@ -1,0 +1,8 @@
+---
+title: "Page Not Found"
+navbar: false
+---
+
+**404 - Page Not Found**
+
+Click here for [Home Page](index.qmd)

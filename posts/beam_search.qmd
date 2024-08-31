@@ -1,15 +1,19 @@
 ---
-title: "Beam Search in LSTM"
+title: "A Gentle Guide to Beam Search with LSTM"
 # subtitle: "Sample Text to Display here"
 description: "A Simple Guide to Implement Beam Search on LSTM models for better text generation."
-author: "Abhijit Darekar"
+# author: "Abhijit Darekar"
 date : 08/28/2024
 image: "images/beam.png"
+# draft: true
 categories : # ["Statistical Modelling","Code","Python"]
   - Hands-on
   - Python
   - Deep Learning
   - LSTM Network
+format:
+  html:
+    html-math-method: mathjax
 ---
 
 :::{.column-page}
@@ -17,3 +21,7 @@ categories : # ["Statistical Modelling","Code","Python"]
 :::
 
 <p style="text-align: center;">Image From Internet</p>
+
+$$
+\sum_{i=1}^n x_i
+$$

@@ -1,0 +1,11 @@
+---
+title: "Weekend Getaways"
+
+about:
+  template: marquee
+toc: false
+draft: true
+draft-mode: linked
+---
+
+### Under Development

@@ -7,8 +7,9 @@ project:
 website:
   title: "Abhijit Darekar"
   search: false
-  favicon: pages/images/favicon.png
-  google-analytics: "G-Z56QPM4BST"
+  favicon: pages/images/favicon2.png
+  # google-analytics: "G-Z56QPM4BST"
+
   navbar:
     
     left:
@@ -20,9 +21,15 @@ website:
     right:
       - href: "https://github.com/abhijitdarekar"
         icon: github
+      - icon: linkedin
+        href: "https://linkedin.com/in/abhijitdarekar"
       - icon: code
-        href:  https://code.com
-
+        href: "https://github.com/abhijitdarekar/abhijit-darekar"
+  back-to-top-navigation: true
+  repo-actions: [edit, issue]
+  repo-branch: "master"
+  repo-url: "https://github.com/abhijitdarekar/abhijit-darekar"
+  page-footer: "Made from Quarto." 
 format:
   html:
     # theme: lux
@@ -31,6 +38,5 @@ format:
       dark: darkly
     css: styles.css
     toc: true
-
 
 

@@ -1,8 +1,35 @@
 ---
 title: "Abhijit Darekar"
 
+format:
+  html:
+    page-layout: article
+toc: False
 ---
+::: {.column-margin}
 
-<img src="pages/images/profile.png" alt="Some pgoto" style='float:left;width:320px;height:300px;margin-right: 20px;border:1px solid black'>  
+ <img src="pages/images/profilee.png" alt="Some photo" style='float:left;width:320px;height:300px;'> 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+:::
+
+<br>
+<p style="text-align:justify"> I'm Abhijit Darekar, Machine Learning Engineer by profession with 4 years of expirence in field. Know more about me [here](about.qmd).
+<br><br>
+Currently Iam working in Skycliff It, Bangalore. 
+</p> 
+
+
+
+<!-- Need to Update Manually. -->
+
+### Writings:
+Some of my recent writings are metioned [here](blog.qmd). <br>Below are some of the recent writings,
+
+- Next Word Prediction with Smoothing Technique ([Learn more](posts/nsp.qmd)).
+- A Gentle Guide to Beam Search with LSTM ([Learn more](posts/beam_search.qmd)).
+
+
+### Miscellaneous 
+<p style="text-align:justify">
+I love to travel, weekend bike ride to hill stations nearby in bangalore or long trip to friends ([More about rides](pages/rides)). I like to read books specially, book realted to personal developemnt, Ficton.</p>
+</p>

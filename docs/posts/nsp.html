@@ -6,11 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Abhijit Darekar">
 <meta name="dcterms.date" content="2024-08-28">
-<meta name="description" content="When reading the contents of a listing, Quarto uses the metadata read from the front matter of the document or the contents of the document itself to populate the following fields for each item">
+<meta name="description" content="implementation of Kneseer-Ney Smoothing Technique for next word prediction in sequence.">
 
-<title>Next Word Prediction – Abhijit Darekar</title>
+<title>Next Word Prediction with Smoothing Technique – Abhijit Darekar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -62,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<link href="../pages/images/favicon.png" rel="icon" type="image/png">
+<link href="../pages/images/favicon2.png" rel="icon" type="image/png">
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -90,15 +89,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z56QPM4BST"></script>
-
-<script type="text/javascript">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
-</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -136,7 +126,12 @@ gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://code.com"> <i class="bi bi-code" role="img">
+    <a class="nav-link" href="https://linkedin.com/in/abhijitdarekar"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/abhijitdarekar/abhijit-darekar"> <i class="bi bi-code" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -161,15 +156,14 @@ gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
   <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data">Loading Data</a></li>
   <li><a href="#creating-kneseer-net-dict" id="toc-creating-kneseer-net-dict" class="nav-link" data-scroll-target="#creating-kneseer-net-dict">Creating Kneseer-Net Dict</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/abhijitdarekar/abhijit-darekar/edit/master/posts/nsp.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/abhijitdarekar/abhijit-darekar/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Next Word Prediction</h1>
-<p class="subtitle lead">Sample Text to Display here</p>
+<h1 class="title">Next Word Prediction with Smoothing Technique</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Statistical Modelling</div>
     <div class="quarto-category">Code</div>
@@ -179,19 +173,13 @@ gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
 
 <div>
   <div class="description">
-    When reading the contents of a listing, Quarto uses the metadata read from the front matter of the document or the contents of the document itself to populate the following fields for each item
+    implementation of Kneseer-Ney Smoothing Technique for next word prediction in sequence.
   </div>
 </div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Abhijit Darekar </p>
-          </div>
-  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
@@ -212,11 +200,12 @@ gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
 <p style="text-align: center;">
 Image From Internet
 </p>
-<p><br><br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales dolor risus, laoreet pulvinar est tincidunt ac. Suspendisse eu nisl orci. Pellentesque lobortis sagittis massa eget tempor. Proin porttitor efficitur ligula, ut venenatis mauris. Praesent venenatis commodo leo a accumsan. Vivamus vestibulum velit rhoncus, tempus augue non, sollicitudin nulla. Curabitur vitae velit sed sapien molestie efficitur non nec orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur in porttitor tortor. Donec sit amet leo vitae velit rhoncus malesuada. Duis aliquam, sapien ut luctus convallis, magna nisl maximus ante, at dignissim elit magna sed mauris. Nunc ac ex velit.</p>
+<p><br><br></p>
+<p>The Other day i was wokring on one of the Natural Language Module and I stumbled on one of the technique, which is Kneseer-Ney Smoothing Technique for finding next word in sequence. Let’t not get into much details. The equation was bit complex to understand, so found some resouces and understood the equation well, but when I was searching for implementation in python , I couldn’t find, so I thought to implement it.</p>
 <p>wefwfm</p>
 <section id="importing-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="importing-libraries">Importing Libraries</h3>
-<div id="df1b63d6" class="cell" data-execution_count="2">
+<div id="d7965dae" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> string</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.util <span class="im">import</span> ngrams</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> OrderedDict, defaultdict, namedtuple</span>
@@ -226,7 +215,7 @@ Image From Internet
 </section>
 <section id="loading-data" class="level3">
 <h3 class="anchored" data-anchor-id="loading-data">Loading Data</h3>
-<div id="1ae79b29" class="cell" data-execution_count="3">
+<div id="90179ce7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> loadCorpus(file_path, bi_dict, tri_dict, quad_dict, vocab_dict):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    token <span class="op">=</span> []</span>
@@ -295,7 +284,7 @@ Image From Internet
 </section>
 <section id="creating-kneseer-net-dict" class="level3">
 <h3 class="anchored" data-anchor-id="creating-kneseer-net-dict">Creating Kneseer-Net Dict</h3>
-<div id="06d2667d" class="cell" data-execution_count="4">
+<div id="e5990d61" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> createKNDict(ngram_dict, n):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -324,7 +313,7 @@ Image From Internet
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> first_dict, sec_dict</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cd97c128" class="cell" data-execution_count="5">
+<div id="ed201379" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> computeKnesserNeyProb(vocab_dict, bi_dict, tri_dict, quad_dict, prob_dict ):</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> <span class="fl">0.75</span></span>
@@ -401,7 +390,7 @@ Image From Internet
 <span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(prob_dict[key])<span class="op">&gt;</span><span class="dv">0</span>:</span>
 <span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>            prob_dict[key] <span class="op">=</span> <span class="bu">sorted</span>(prob_dict[key],reverse <span class="op">=</span> <span class="va">True</span>)[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9ad5da66" class="cell" data-execution_count="6">
+<div id="3a4048f0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> removePunctuations(sen):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
@@ -435,7 +424,7 @@ Image From Internet
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c00edf53" class="cell" data-execution_count="7">
+<div id="9024d563" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> computeKnesserNeyProb2(vocab_dict, ngram_dicts, prob_dict):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="fl">0.75</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    interpolation <span class="op">=</span> <span class="fl">0.4</span>  <span class="co"># Adjust as needed</span></span>
@@ -461,7 +450,7 @@ Image From Internet
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Completed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="68c4a241" class="cell" data-execution_count="8">
+<div id="2900c425" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> first:</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    bi_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    tri_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)            </span>
@@ -493,40 +482,43 @@ Image From Internet
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    inp_proc_time <span class="op">=</span> datetime.now()</span>
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'----------------------------Prediction Time :'</span>,inp_proc_time<span class="op">-</span>inp_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>  0%|          | 0/9845 [00:00&lt;?, ?it/s] 54%|█████▎    | 5277/9845 [00:00&lt;00:00, 52764.26it/s]100%|██████████| 9845/9845 [00:00&lt;00:00, 65315.10it/s]
-  0%|          | 0/19829 [00:00&lt;?, ?it/s] 44%|████▍     | 8819/19829 [00:00&lt;00:00, 88178.73it/s] 89%|████████▉ | 17637/19829 [00:00&lt;00:00, 86700.17it/s]100%|██████████| 19829/19829 [00:00&lt;00:00, 86446.29it/s]
-  0%|          | 0/23911 [00:00&lt;?, ?it/s] 34%|███▍      | 8164/23911 [00:00&lt;00:00, 81621.20it/s] 68%|██████▊   | 16327/23911 [00:00&lt;00:00, 80345.13it/s]100%|██████████| 23911/23911 [00:00&lt;00:00, 80636.22it/s]</code></pre>
+<pre><code>  0%|          | 0/9845 [00:00&lt;?, ?it/s] 50%|████▉     | 4877/9845 [00:00&lt;00:00, 48764.35it/s]100%|██████████| 9845/9845 [00:00&lt;00:00, 58770.09it/s]
+  0%|          | 0/19829 [00:00&lt;?, ?it/s] 32%|███▏      | 6373/19829 [00:00&lt;00:00, 63724.74it/s] 68%|██████▊   | 13448/19829 [00:00&lt;00:00, 67851.53it/s]100%|██████████| 19829/19829 [00:00&lt;00:00, 69421.06it/s]
+  0%|          | 0/23911 [00:00&lt;?, ?it/s] 33%|███▎      | 7818/23911 [00:00&lt;00:00, 78159.95it/s] 65%|██████▌   | 15649/23911 [00:00&lt;00:00, 78244.41it/s] 98%|█████████▊| 23474/23911 [00:00&lt;00:00, 72911.51it/s]100%|██████████| 23911/23911 [00:00&lt;00:00, 69776.47it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Completed</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
 </div>
-<div id="de973a55" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"Hi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d0843376" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"Hi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[0.9761837911670966, 'how'], [0.6773237382168934, 'what']]
-----------------------------Prediction Time : 0:00:00.000065</code></pre>
+----------------------------Prediction Time : 0:00:00.000096</code></pre>
 </div>
 </div>
-<div id="ec8baa9c" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"good Morning"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7dbbffb5" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"good Morning"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[0.15004384411729987, 'team']]
-----------------------------Prediction Time : 0:00:00.000118</code></pre>
+----------------------------Prediction Time : 0:00:00.000115</code></pre>
 </div>
 </div>
-<div id="a8d07225" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"What are"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="12bdafa8" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"What are"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[1.719622097435119, 'you'], [0.5116390954621338, 'we']]
-----------------------------Prediction Time : 0:00:00.000094</code></pre>
+----------------------------Prediction Time : 0:00:00.000095</code></pre>
 </div>
 </div>
 
 
 </section>
 
-</main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1092,6 +1084,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Made from Quarto.</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/abhijitdarekar/abhijit-darekar/edit/master/posts/nsp.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/abhijitdarekar/abhijit-darekar/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

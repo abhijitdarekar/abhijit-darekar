@@ -1,13 +1,13 @@
 ---
 title: ""
-image: "pages/images/profile.png"
+image: "pages/images/profilee.png"
 image-alt: "Some Photo"
 toc: false  
 
 about:
   template: trestles
   image-shape: rounded
-  image-width: 20em
+  image-width: 15em
   links:
     - icon: github
       text: Github
@@ -26,9 +26,13 @@ about:
       target: _blank
       href: mailto:jeetdarekar@icloud.com
 ---
-### About Me 
+## About Me 
+<p style="text-align:justify">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I have diverse knowledge in Machine Learning and Deep Learning field. I have worked on various projects from showcasing in POC to deploying them in prodution. I have through knwoledge on ML Algorihtm, DL Archiectures, cloud Services such as Azure OpenAI, AWS SageMaker, AWS Lambda Funcions, AWS Api Route, AWS ECR & EC2 and Github Actions for CI/CD.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I am active in [Kaggel](https://www.kaggle.com/abhijitdarekar001), participating in competations, to testing out LLM(s) and searching for datasets. I have recieved <span style="color:purple">Kaggle Notebooks Exprets Badge.</span>
+</p> 
 
 ### Timeline
 | Role    | Company    | Duration |
