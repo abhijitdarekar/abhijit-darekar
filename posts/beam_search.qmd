@@ -16,12 +16,7 @@ format:
     html-math-method: mathjax
 ---
 
-:::{.column-page}
+
 ![](images/beam.png)
-:::
 
-<p style="text-align: center;">Image From Internet</p>
 
-$$
-\sum_{i=1}^n x_i
-$$

@@ -17,14 +17,22 @@ website:
         text: About
       - href: blog.qmd
         text: Blog
+      # - text: Resume
+      #   href: pages/docs/resume.qmd
 
     right:
       - href: "https://github.com/abhijitdarekar"
         icon: github
+        target: _blank
       - icon: linkedin
+        target: _blank
         href: "https://linkedin.com/in/abhijitdarekar"
       - icon: code
+        target: _blank
         href: "https://github.com/abhijitdarekar/abhijit-darekar"
+      - icon: file-earmark-text
+        target: _blank
+        href: "pages/docs/Abhijit Darekar- ML Engineer@ Skycliffit.pdf"
   back-to-top-navigation: true
   repo-actions: [edit, issue]
   repo-branch: "master"

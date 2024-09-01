@@ -2,10 +2,11 @@
 title: ""
 image: "pages/images/profile.png"
 image-alt: "Some Photo"
+image-width: 2em
 toc: false  
 
 about:
-  template: trestles
+  template:  trestles
   image-shape: rounded
   image-width: 15em
   links:
@@ -25,14 +26,19 @@ about:
       text: Mail
       target: _blank
       href: mailto:jeetdarekar@icloud.com
+    - icon: file-earmark-text
+      target: _blank
+      href: "pages/docs/Abhijit Darekar- ML Engineer@ Skycliffit.pdf"
+      text: Resume
 ---
 ## About Me 
 <p style="text-align:justify">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I have diverse knowledge in Machine Learning and Deep Learning field. I have worked on various projects from showcasing in POC to deploying them in prodution. I have through knwoledge on ML Algorihtm, DL Archiectures, cloud Services such as Azure OpenAI, AWS SageMaker, AWS Lambda Funcions, AWS Api Route, AWS ECR & EC2 and Github Actions for CI/CD.
+</p>
 
-
+<p style="text-align:justify">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I am active in [Kaggel](https://www.kaggle.com/abhijitdarekar001), participating in competations, to testing out LLM(s) and searching for datasets. I have recieved <span style="color:purple">Kaggle Notebooks Exprets Badge.</span>
-</p> 
+</p>
 
 ### Timeline
 | Role    | Company    | Duration |
@@ -40,3 +46,8 @@ about:
 | Machine Learning Engineer   | Skycliff IT | Jan 2024 - Present |
 | Python Developer     | Tata Consultancy Service | Sep 2020 - Nov 2022 |
 
+
+{{< pagebreak >}}
+
+
+### This is next content

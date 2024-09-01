@@ -121,17 +121,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/abhijitdarekar"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/abhijitdarekar" target="_blank"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://linkedin.com/in/abhijitdarekar"> <i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://linkedin.com/in/abhijitdarekar" target="_blank"> <i class="bi bi-linkedin" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/abhijitdarekar/abhijit-darekar"> <i class="bi bi-code" role="img">
+    <a class="nav-link" href="https://github.com/abhijitdarekar/abhijit-darekar" target="_blank"> <i class="bi bi-code" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../pages/docs/Abhijit Darekar- ML Engineer@ Skycliffit.pdf" target="_blank"> <i class="bi bi-file-earmark-text" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -154,7 +159,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#importing-libraries" id="toc-importing-libraries" class="nav-link active" data-scroll-target="#importing-libraries">Importing Libraries</a></li>
   <li><a href="#loading-data" id="toc-loading-data" class="nav-link" data-scroll-target="#loading-data">Loading Data</a></li>
-  <li><a href="#creating-kneseer-net-dict" id="toc-creating-kneseer-net-dict" class="nav-link" data-scroll-target="#creating-kneseer-net-dict">Creating Kneseer-Net Dict</a></li>
+  <li><a href="#generating-kneeser-ney-dictonaries" id="toc-generating-kneeser-ney-dictonaries" class="nav-link" data-scroll-target="#generating-kneeser-ney-dictonaries">Generating Kneeser-Ney Dictonaries</a></li>
+  <li><a href="#creating-kneeser-ney-probablities-dictonary" id="toc-creating-kneeser-ney-probablities-dictonary" class="nav-link" data-scroll-target="#creating-kneeser-ney-probablities-dictonary">Creating Kneeser-Ney Probablities Dictonary</a></li>
+  <li><a href="#utilites-function" id="toc-utilites-function" class="nav-link" data-scroll-target="#utilites-function">Utilites Function</a></li>
+  <li><a href="#start-of-the-code" id="toc-start-of-the-code" class="nav-link" data-scroll-target="#start-of-the-code">Start of The Code</a></li>
+  <li><a href="#predction-function" id="toc-predction-function" class="nav-link" data-scroll-target="#predction-function">Predction Function</a></li>
+  <li><a href="#generating-response-1" id="toc-generating-response-1" class="nav-link" data-scroll-target="#generating-response-1">Generating Response 1</a></li>
+  <li><a href="#generating-response-2" id="toc-generating-response-2" class="nav-link" data-scroll-target="#generating-response-2">Generating Response 2</a></li>
+  <li><a href="#generating-response-3" id="toc-generating-response-3" class="nav-link" data-scroll-target="#generating-response-3">Generating Response 3</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/abhijitdarekar/abhijit-darekar/edit/master/posts/nsp.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/abhijitdarekar/abhijit-darekar/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -202,289 +214,207 @@ Image From Internet
 </p>
 <p><br><br></p>
 <p>The Other day i was wokring on one of the Natural Language Module and I stumbled on one of the technique, which is Kneseer-Ney Smoothing Technique for finding next word in sequence. Let’t not get into much details. The equation was bit complex to understand, so found some resouces and understood the equation well, but when I was searching for implementation in python , I couldn’t find, so I thought to implement it.</p>
-<p>wefwfm</p>
 <section id="importing-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="importing-libraries">Importing Libraries</h3>
-<div id="d7965dae" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> string</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nltk.util <span class="im">import</span> ngrams</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> OrderedDict, defaultdict, namedtuple</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I will be using <code>ngram</code>from <code>nltk</code> library to create a</p>
+<div id="b7b72e78" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> string</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> nltk.util <span class="im">import</span> ngrams</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> collections <span class="im">import</span> OrderedDict, defaultdict</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> tqdm <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="loading-data" class="level3">
 <h3 class="anchored" data-anchor-id="loading-data">Loading Data</h3>
-<div id="90179ce7" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> loadCorpus(file_path, bi_dict, tri_dict, quad_dict, vocab_dict):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    token <span class="op">=</span> []</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    word_len <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path,<span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        lines  <span class="op">=</span> [ x.strip() <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">file</span>.readlines()]</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> [<span class="st">'&lt;start&gt; '</span><span class="op">+</span>x<span class="op">+</span><span class="st">' &lt;end&gt;'</span> <span class="cf">for</span> x <span class="kw">in</span> lines]</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> lines:</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        temp_l <span class="op">=</span> line.split()</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(temp_l)</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> word <span class="kw">in</span> temp_l :</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> l <span class="kw">in</span> word :</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> l <span class="kw">in</span> <span class="st">'!"#$%&amp;</span><span class="ch">\'</span><span class="st">()*+,-./:;=?@[</span><span class="ch">\\</span><span class="st">]^_`{|}~'</span>:</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> l <span class="op">==</span> <span class="st">"'"</span>:</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> j<span class="op">+</span><span class="dv">1</span><span class="op">&lt;</span><span class="bu">len</span>(word) <span class="kw">and</span> word[j<span class="op">+</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'s'</span>:</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                            j <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">continue</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                    word <span class="op">=</span> word.replace(l,<span class="st">" "</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                    <span class="co">#print(j,word[j])</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            temp_l[i] <span class="op">=</span> word.lower()</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        content <span class="op">=</span> <span class="st">" "</span>.join(temp_l)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        token <span class="op">=</span> content.split()</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        word_len <span class="op">=</span> word_len <span class="op">+</span> <span class="bu">len</span>(token)  </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> token:</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        temp0 <span class="op">=</span> <span class="bu">list</span>(ngrams(token,<span class="dv">2</span>))</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        temp1 <span class="op">=</span> <span class="bu">list</span>(ngrams(token,<span class="dv">3</span>))</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> word <span class="kw">in</span> token:</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> word <span class="kw">not</span> <span class="kw">in</span> vocab_dict:</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                vocab_dict[word] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>                vocab_dict[word]<span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                </span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>        temp2 <span class="op">=</span> <span class="bu">list</span>(ngrams(token,<span class="dv">4</span>))</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> temp0:</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            sen <span class="op">=</span> <span class="st">' '</span>.join(t)</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>            bi_dict[sen] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> temp1:</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>            sen <span class="op">=</span> <span class="st">' '</span>.join(t)</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>            tri_dict[sen] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> temp2:</span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            sen <span class="op">=</span> <span class="st">' '</span>.join(t)</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>            quad_dict[sen] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> <span class="bu">len</span>(token)</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> word_len</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d6e21b43" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> loadCorpus(file_path, bi_dict, tri_dict, quad_dict, vocab_dict):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    token <span class="op">=</span> []</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    word_len <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path,<span class="st">'r'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        lines  <span class="op">=</span> [ x.strip() <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">file</span>.readlines()]</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    lines <span class="op">=</span> [<span class="st">'&lt;start&gt; '</span><span class="op">+</span>x<span class="op">+</span><span class="st">' &lt;end&gt;'</span> <span class="cf">for</span> x <span class="kw">in</span> lines]</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="cf">for</span> line <span class="kw">in</span> lines:</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        temp_l <span class="op">=</span> line.split()</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        <span class="co"># print(temp_l)</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>        i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>        j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>        </span>
+<span id="cb2-14"><a href="#cb2-14"></a>        <span class="cf">for</span> word <span class="kw">in</span> temp_l :</span>
+<span id="cb2-15"><a href="#cb2-15"></a>            j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>            <span class="cf">for</span> l <span class="kw">in</span> word :</span>
+<span id="cb2-17"><a href="#cb2-17"></a>                <span class="cf">if</span> l <span class="kw">in</span> <span class="st">'!"#$%&amp;</span><span class="ch">\'</span><span class="st">()*+,-./:;=?@[</span><span class="ch">\\</span><span class="st">]^_`{|}~'</span>:</span>
+<span id="cb2-18"><a href="#cb2-18"></a>                    <span class="cf">if</span> l <span class="op">==</span> <span class="st">"'"</span>:</span>
+<span id="cb2-19"><a href="#cb2-19"></a>                        <span class="cf">if</span> j<span class="op">+</span><span class="dv">1</span><span class="op">&lt;</span><span class="bu">len</span>(word) <span class="kw">and</span> word[j<span class="op">+</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'s'</span>:</span>
+<span id="cb2-20"><a href="#cb2-20"></a>                            j <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>                            <span class="cf">continue</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>                    word <span class="op">=</span> word.replace(l,<span class="st">" "</span>)</span>
+<span id="cb2-23"><a href="#cb2-23"></a>                    <span class="co">#print(j,word[j])</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a>                j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a>            temp_l[i] <span class="op">=</span> word.lower()</span>
+<span id="cb2-27"><a href="#cb2-27"></a>            i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a>        content <span class="op">=</span> <span class="st">" "</span>.join(temp_l)</span>
+<span id="cb2-30"><a href="#cb2-30"></a></span>
+<span id="cb2-31"><a href="#cb2-31"></a>        token <span class="op">=</span> content.split()</span>
+<span id="cb2-32"><a href="#cb2-32"></a>        word_len <span class="op">=</span> word_len <span class="op">+</span> <span class="bu">len</span>(token)  </span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a>        <span class="cf">if</span> <span class="kw">not</span> token:</span>
+<span id="cb2-35"><a href="#cb2-35"></a>            <span class="cf">continue</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a></span>
+<span id="cb2-37"><a href="#cb2-37"></a>        temp0 <span class="op">=</span> <span class="bu">list</span>(ngrams(token,<span class="dv">2</span>))</span>
+<span id="cb2-38"><a href="#cb2-38"></a>       </span>
+<span id="cb2-39"><a href="#cb2-39"></a>        temp1 <span class="op">=</span> <span class="bu">list</span>(ngrams(token,<span class="dv">3</span>))</span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a>        <span class="cf">for</span> word <span class="kw">in</span> token:</span>
+<span id="cb2-42"><a href="#cb2-42"></a>            <span class="cf">if</span> word <span class="kw">not</span> <span class="kw">in</span> vocab_dict:</span>
+<span id="cb2-43"><a href="#cb2-43"></a>                vocab_dict[word] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a>            <span class="cf">else</span>:</span>
+<span id="cb2-45"><a href="#cb2-45"></a>                vocab_dict[word]<span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a>                </span>
+<span id="cb2-47"><a href="#cb2-47"></a>        temp2 <span class="op">=</span> <span class="bu">list</span>(ngrams(token,<span class="dv">4</span>))</span>
+<span id="cb2-48"><a href="#cb2-48"></a></span>
+<span id="cb2-49"><a href="#cb2-49"></a>        <span class="cf">for</span> t <span class="kw">in</span> temp0:</span>
+<span id="cb2-50"><a href="#cb2-50"></a>            sen <span class="op">=</span> <span class="st">' '</span>.join(t)</span>
+<span id="cb2-51"><a href="#cb2-51"></a>            bi_dict[sen] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a>        <span class="cf">for</span> t <span class="kw">in</span> temp1:</span>
+<span id="cb2-54"><a href="#cb2-54"></a>            sen <span class="op">=</span> <span class="st">' '</span>.join(t)</span>
+<span id="cb2-55"><a href="#cb2-55"></a>            tri_dict[sen] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a></span>
+<span id="cb2-57"><a href="#cb2-57"></a>        <span class="cf">for</span> t <span class="kw">in</span> temp2:</span>
+<span id="cb2-58"><a href="#cb2-58"></a>            sen <span class="op">=</span> <span class="st">' '</span>.join(t)</span>
+<span id="cb2-59"><a href="#cb2-59"></a>            quad_dict[sen] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a></span>
+<span id="cb2-61"><a href="#cb2-61"></a>        n <span class="op">=</span> <span class="bu">len</span>(token)</span>
+<span id="cb2-62"><a href="#cb2-62"></a>           </span>
+<span id="cb2-63"><a href="#cb2-63"></a>    <span class="cf">return</span> word_len</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="creating-kneseer-net-dict" class="level3">
-<h3 class="anchored" data-anchor-id="creating-kneseer-net-dict">Creating Kneseer-Net Dict</h3>
-<div id="e5990d61" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> createKNDict(ngram_dict, n):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="fl">0.75</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    first_dict <span class="op">=</span> {}</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    sec_dict <span class="op">=</span> {}</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key <span class="kw">in</span> ngram_dict:</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        ngram_token <span class="op">=</span> key.split()</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        n_1gram_sen <span class="op">=</span> <span class="st">' '</span>.join(ngram_token[:n<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n_1gram_sen <span class="kw">not</span> <span class="kw">in</span> sec_dict:</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            sec_dict[ n_1gram_sen ] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            sec_dict[ n_1gram_sen ] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ngram_token[<span class="op">-</span><span class="dv">1</span>] <span class="kw">not</span> <span class="kw">in</span> first_dict:</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            first_dict[ ngram_token[<span class="op">-</span><span class="dv">1</span>] ] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            first_dict[ ngram_token[<span class="op">-</span><span class="dv">1</span>] ] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> first_dict, sec_dict</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="generating-kneeser-ney-dictonaries" class="level3">
+<h3 class="anchored" data-anchor-id="generating-kneeser-ney-dictonaries">Generating Kneeser-Ney Dictonaries</h3>
+<div id="809a1cc8" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> createKNDict(ngram_dict, n):</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    d <span class="op">=</span> <span class="fl">0.75</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    first_dict <span class="op">=</span> {}</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    </span>
+<span id="cb3-8"><a href="#cb3-8"></a>    sec_dict <span class="op">=</span> {}</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    </span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="cf">for</span> key <span class="kw">in</span> ngram_dict:</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        </span>
+<span id="cb3-12"><a href="#cb3-12"></a>        ngram_token <span class="op">=</span> key.split()</span>
+<span id="cb3-13"><a href="#cb3-13"></a>       </span>
+<span id="cb3-14"><a href="#cb3-14"></a>        n_1gram_sen <span class="op">=</span> <span class="st">' '</span>.join(ngram_token[:n<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb3-15"><a href="#cb3-15"></a>         </span>
+<span id="cb3-16"><a href="#cb3-16"></a>        <span class="cf">if</span> n_1gram_sen <span class="kw">not</span> <span class="kw">in</span> sec_dict:</span>
+<span id="cb3-17"><a href="#cb3-17"></a>            sec_dict[ n_1gram_sen ] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-19"><a href="#cb3-19"></a>            sec_dict[ n_1gram_sen ] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>            </span>
+<span id="cb3-21"><a href="#cb3-21"></a>        <span class="cf">if</span> ngram_token[<span class="op">-</span><span class="dv">1</span>] <span class="kw">not</span> <span class="kw">in</span> first_dict:</span>
+<span id="cb3-22"><a href="#cb3-22"></a>            first_dict[ ngram_token[<span class="op">-</span><span class="dv">1</span>] ] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-24"><a href="#cb3-24"></a>            first_dict[ ngram_token[<span class="op">-</span><span class="dv">1</span>] ] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a>    </span>
+<span id="cb3-26"><a href="#cb3-26"></a>    <span class="cf">return</span> first_dict, sec_dict</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ed201379" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> computeKnesserNeyProb(vocab_dict, bi_dict, tri_dict, quad_dict, prob_dict ):</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> <span class="fl">0.75</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        quad_first_dict, quad_sec_dict <span class="op">=</span> createKNDict(quad_dict, <span class="dv">4</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        tri_first_dict, tri_sec_dict <span class="op">=</span> createKNDict(tri_dict, <span class="dv">3</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        bi_first_dict, bi_sec_dict <span class="op">=</span> createKNDict(bi_dict, <span class="dv">2</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># For Higher order Ngram range 4     </span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> quad <span class="kw">in</span> quad_dict:</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            quad_token <span class="op">=</span> quad.split()</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            tri_sen <span class="op">=</span> <span class="st">' '</span>.join(quad_token[:<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            quad_prob1 <span class="op">=</span> <span class="bu">max</span>( quad_dict[quad] <span class="op">-</span> d, <span class="dv">0</span>) <span class="op">/</span> tri_dict[tri_sen]</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            quad_prob2 <span class="op">=</span> d<span class="op">/</span>tri_dict[tri_sen] <span class="op">*</span> ( quad_sec_dict[tri_sen] )</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            tri_prob1 <span class="op">=</span> <span class="bu">max</span>( tri_first_dict[quad_token[<span class="op">-</span><span class="dv">1</span>]] <span class="op">-</span> d, <span class="dv">0</span>) <span class="op">/</span> <span class="bu">len</span>(tri_dict)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            tri_prob2 <span class="op">=</span> ( d<span class="op">/</span><span class="bu">len</span>(tri_dict) )<span class="op">*</span> ( tri_sec_dict[<span class="st">' '</span>.join(quad_token[<span class="dv">1</span>:<span class="dv">3</span>])] )</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            bi_prob1 <span class="op">=</span> <span class="bu">max</span>( bi_first_dict[quad_token[<span class="op">-</span><span class="dv">1</span>]] <span class="op">-</span> d, <span class="dv">0</span>) <span class="op">/</span> <span class="bu">len</span>(bi_dict)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            bi_prob2 <span class="op">=</span> ( d<span class="op">/</span><span class="bu">len</span>(bi_dict) ) <span class="op">*</span> ( bi_sec_dict[quad_token[<span class="op">-</span><span class="dv">2</span>]])</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            uni_prob <span class="op">=</span> bi_first_dict[quad_token[<span class="op">-</span><span class="dv">1</span>]] <span class="op">/</span> <span class="bu">len</span>(bi_dict)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>            prob <span class="op">=</span> quad_prob1 <span class="op">+</span> quad_prob2<span class="op">*</span>( tri_prob1 <span class="op">+</span> tri_prob2<span class="op">*</span>( bi_prob1 <span class="op">+</span> bi_prob2<span class="op">*</span> uni_prob ) )</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>           </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> tri_sen <span class="kw">not</span> <span class="kw">in</span> prob_dict:</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                prob_dict[tri_sen] <span class="op">=</span> []</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                prob_dict[tri_sen].append([prob,quad_token[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                prob_dict[tri_sen].append([prob,quad_token[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">#for ngram range 3</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> tri <span class="kw">in</span> tri_dict:</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            tri_token <span class="op">=</span> tri.split()</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>            bi_sen <span class="op">=</span> <span class="st">" "</span>.join(tri_token[:<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>            tri_prob1 <span class="op">=</span> <span class="bu">max</span>(tri_dict[tri] <span class="op">-</span>d , <span class="dv">0</span>) <span class="op">/</span> bi_dict[bi_sen]</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>            tri_prob2 <span class="op">=</span>  (d<span class="op">/</span>bi_dict[bi_sen]) <span class="op">*</span> (tri_sec_dict[bi_sen])</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            bi_prob1 <span class="op">=</span> <span class="bu">max</span>(bi_first_dict[tri_token[<span class="op">-</span><span class="dv">1</span>]] <span class="op">-</span>d,<span class="dv">0</span>)<span class="op">/</span><span class="bu">len</span>(bi_dict)</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            bi_prob2 <span class="op">=</span> (d<span class="op">/</span><span class="bu">len</span>(bi_dict)) <span class="op">*</span> (bi_sec_dict[tri_token[<span class="op">-</span><span class="dv">2</span>]])</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>            uni_prob <span class="op">=</span> bi_first_dict[tri_token[<span class="op">-</span><span class="dv">1</span>]]<span class="op">/</span><span class="bu">len</span>(bi_dict)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>            prob <span class="op">=</span> tri_prob1 <span class="op">+</span> tri_prob2<span class="op">*</span>( bi_prob1 <span class="op">+</span> bi_prob2<span class="op">*</span> uni_prob )</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> bi_sen <span class="kw">not</span> <span class="kw">in</span> prob_dict:</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                prob_dict[bi_sen] <span class="op">=</span> []</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                prob_dict[bi_sen].append([prob,tri_token[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                prob_dict[bi_sen].append([prob,tri_token[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">#for ngram range 2        </span></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> bi <span class="kw">in</span> bi_dict:</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            bi_token <span class="op">=</span> bi.split() </span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            sen <span class="op">=</span> <span class="st">" "</span>.join(bi_token[:<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>            bi_prob1 <span class="op">=</span> <span class="bu">max</span>(bi_dict[bi] <span class="op">-</span> d,<span class="dv">0</span>)<span class="op">/</span>vocab_dict[sen]</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>            bi_prob2 <span class="op">=</span> (d<span class="op">/</span>vocab_dict[sen]) <span class="op">*</span>( bi_sec_dict[bi_token[<span class="op">-</span><span class="dv">2</span>]])</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>            uni_prob <span class="op">=</span> bi_first_dict[bi_token[<span class="op">-</span><span class="dv">1</span>]]<span class="op">/</span><span class="bu">len</span>(bi_dict)</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>            prob <span class="op">=</span> bi_prob1 <span class="op">+</span> bi_prob2<span class="op">*</span> uni_prob</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> sen <span class="kw">not</span> <span class="kw">in</span> prob_dict:</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>                prob_dict[sen] <span class="op">=</span> []</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>                prob_dict[sen].append([prob,bi_token[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>                prob_dict[sen].append([prob,bi_token[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Completed"</span>)</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sortProbWordDict(prob_dict):</span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key <span class="kw">in</span> prob_dict:</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(prob_dict[key])<span class="op">&gt;</span><span class="dv">0</span>:</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>            prob_dict[key] <span class="op">=</span> <span class="bu">sorted</span>(prob_dict[key],reverse <span class="op">=</span> <span class="va">True</span>)[:<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="creating-kneeser-ney-probablities-dictonary" class="level3">
+<h3 class="anchored" data-anchor-id="creating-kneeser-ney-probablities-dictonary">Creating Kneeser-Ney Probablities Dictonary</h3>
+<div id="a06db201" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> computeKnesserNeyProbablity(vocab_dict, ngram_dicts, prob_dict):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    d <span class="op">=</span> <span class="fl">0.75</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    interpolation <span class="op">=</span> <span class="fl">0.4</span>  <span class="co"># Adjust as needed</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="cf">for</span> order <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">len</span>(ngram_dicts) <span class="op">+</span> <span class="dv">2</span>):</span>
+<span id="cb4-6"><a href="#cb4-6"></a>        current_dict <span class="op">=</span> ngram_dicts[order <span class="op">-</span> <span class="dv">2</span>]</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>        first_dict, sec_dict <span class="op">=</span> createKNDict(current_dict, order)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>        <span class="cf">for</span> ngram <span class="kw">in</span> tqdm(current_dict):</span>
+<span id="cb4-11"><a href="#cb4-11"></a>            ngram_tokens <span class="op">=</span> ngram.split()</span>
+<span id="cb4-12"><a href="#cb4-12"></a>            prefix <span class="op">=</span> <span class="st">' '</span>.join(ngram_tokens[:<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a>            prob1 <span class="op">=</span> <span class="bu">max</span>(current_dict[ngram] <span class="op">-</span> d, <span class="dv">0</span>) <span class="op">/</span> sec_dict[prefix] <span class="cf">if</span> prefix <span class="kw">in</span> sec_dict <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>            prob2 <span class="op">=</span> d <span class="op">/</span> sec_dict[prefix] <span class="op">*</span> (first_dict[ngram_tokens[<span class="op">-</span><span class="dv">1</span>]] <span class="cf">if</span> ngram_tokens[<span class="op">-</span><span class="dv">1</span>] <span class="kw">in</span> first_dict <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(order <span class="op">-</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb4-18"><a href="#cb4-18"></a>                ngram_prefix <span class="op">=</span> <span class="st">' '</span>.join(ngram_tokens[i:<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb4-19"><a href="#cb4-19"></a>                prob2 <span class="op">*=</span> d <span class="op">/</span> <span class="bu">len</span>(ngram_dicts[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">*</span> (sec_dict[ngram_prefix] <span class="cf">if</span> ngram_prefix <span class="kw">in</span> sec_dict <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb4-20"><a href="#cb4-20"></a></span>
+<span id="cb4-21"><a href="#cb4-21"></a>            prob_dict[prefix] <span class="op">=</span> prob_dict.get(prefix, [])</span>
+<span id="cb4-22"><a href="#cb4-22"></a>            prob_dict[prefix].append([(<span class="dv">1</span> <span class="op">-</span> interpolation) <span class="op">*</span> (prob1 <span class="op">+</span> prob2) <span class="op">+</span> interpolation <span class="op">*</span> vocab_dict[ngram_tokens[<span class="op">-</span><span class="dv">1</span>]] <span class="op">/</span> <span class="bu">sum</span>(vocab_dict.values()), ngram_tokens[<span class="op">-</span><span class="dv">1</span>]])</span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="bu">print</span>(<span class="st">"Completed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3a4048f0" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>first <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> removePunctuations(sen):</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Funtion to remove punctuations from the given input sentence and covert them to lowercase.</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">    arg: string</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">    returns: string</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    temp_l <span class="op">=</span> sen.split()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> temp_l :</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(len(word))</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> l <span class="kw">in</span> word :</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> l <span class="kw">in</span> string.punctuation:</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> l <span class="op">==</span> <span class="st">"'"</span>:</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> j<span class="op">+</span><span class="dv">1</span><span class="op">&lt;</span><span class="bu">len</span>(word) <span class="kw">and</span> word[j<span class="op">+</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'s'</span>:</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                        j <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">continue</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>                word <span class="op">=</span> word.replace(l,<span class="st">" "</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        temp_l[i] <span class="op">=</span> word.lower()</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    content <span class="op">=</span> <span class="st">" "</span>.join(temp_l)</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> content</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> doPrediction(sen, prob_dict):</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sen <span class="kw">in</span> prob_dict:</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> prob_dict[sen]</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="utilites-function" class="level3">
+<h3 class="anchored" data-anchor-id="utilites-function">Utilites Function</h3>
+<div id="1b12a81f" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> sortProbWordDict(prob_dict):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="cf">for</span> key <span class="kw">in</span> prob_dict:</span>
+<span id="cb5-3"><a href="#cb5-3"></a>        <span class="cf">if</span> <span class="bu">len</span>(prob_dict[key])<span class="op">&gt;</span><span class="dv">0</span>:</span>
+<span id="cb5-4"><a href="#cb5-4"></a>            prob_dict[key] <span class="op">=</span> <span class="bu">sorted</span>(prob_dict[key],reverse <span class="op">=</span> <span class="va">True</span>)[:<span class="dv">2</span>]</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="kw">def</span> removePunctuations(sen):</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    <span class="co">"""</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">    Funtion to remove punctuations from the given input sentence and covert them to lowercase.</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">    arg: string</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">    returns: string</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">    """</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    temp_l <span class="op">=</span> sen.split()</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-16"><a href="#cb5-16"></a>    </span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="cf">for</span> word <span class="kw">in</span> temp_l :</span>
+<span id="cb5-18"><a href="#cb5-18"></a>        j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>        <span class="co">#print(len(word))</span></span>
+<span id="cb5-20"><a href="#cb5-20"></a>        <span class="cf">for</span> l <span class="kw">in</span> word :</span>
+<span id="cb5-21"><a href="#cb5-21"></a>            <span class="cf">if</span> l <span class="kw">in</span> string.punctuation:</span>
+<span id="cb5-22"><a href="#cb5-22"></a>                <span class="cf">if</span> l <span class="op">==</span> <span class="st">"'"</span>:</span>
+<span id="cb5-23"><a href="#cb5-23"></a>                    <span class="cf">if</span> j<span class="op">+</span><span class="dv">1</span><span class="op">&lt;</span><span class="bu">len</span>(word) <span class="kw">and</span> word[j<span class="op">+</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'s'</span>:</span>
+<span id="cb5-24"><a href="#cb5-24"></a>                        j <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a>                        <span class="cf">continue</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a>                word <span class="op">=</span> word.replace(l,<span class="st">" "</span>)</span>
+<span id="cb5-27"><a href="#cb5-27"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a></span>
+<span id="cb5-29"><a href="#cb5-29"></a>        temp_l[i] <span class="op">=</span> word.lower()</span>
+<span id="cb5-30"><a href="#cb5-30"></a>        i<span class="op">=</span>i<span class="op">+</span><span class="dv">1</span>   </span>
+<span id="cb5-31"><a href="#cb5-31"></a>    content <span class="op">=</span> <span class="st">" "</span>.join(temp_l)</span>
+<span id="cb5-32"><a href="#cb5-32"></a>    <span class="cf">return</span> content</span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="kw">def</span> doPrediction(sen, prob_dict):</span>
+<span id="cb5-34"><a href="#cb5-34"></a>    <span class="cf">if</span> sen <span class="kw">in</span> prob_dict:</span>
+<span id="cb5-35"><a href="#cb5-35"></a>        <span class="cf">return</span> prob_dict[sen]</span>
+<span id="cb5-36"><a href="#cb5-36"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-37"><a href="#cb5-37"></a>        <span class="cf">return</span> <span class="st">""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9024d563" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> computeKnesserNeyProb2(vocab_dict, ngram_dicts, prob_dict):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> <span class="fl">0.75</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    interpolation <span class="op">=</span> <span class="fl">0.4</span>  <span class="co"># Adjust as needed</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> order <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">len</span>(ngram_dicts) <span class="op">+</span> <span class="dv">2</span>):</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        current_dict <span class="op">=</span> ngram_dicts[order <span class="op">-</span> <span class="dv">2</span>]</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        first_dict, sec_dict <span class="op">=</span> createKNDict(current_dict, order)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> ngram <span class="kw">in</span> tqdm(current_dict):</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            ngram_tokens <span class="op">=</span> ngram.split()</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            prefix <span class="op">=</span> <span class="st">' '</span>.join(ngram_tokens[:<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            prob1 <span class="op">=</span> <span class="bu">max</span>(current_dict[ngram] <span class="op">-</span> d, <span class="dv">0</span>) <span class="op">/</span> sec_dict[prefix] <span class="cf">if</span> prefix <span class="kw">in</span> sec_dict <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            prob2 <span class="op">=</span> d <span class="op">/</span> sec_dict[prefix] <span class="op">*</span> (first_dict[ngram_tokens[<span class="op">-</span><span class="dv">1</span>]] <span class="cf">if</span> ngram_tokens[<span class="op">-</span><span class="dv">1</span>] <span class="kw">in</span> first_dict <span class="cf">else</span> <span class="dv">0</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(order <span class="op">-</span> <span class="dv">2</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                ngram_prefix <span class="op">=</span> <span class="st">' '</span>.join(ngram_tokens[i:<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                prob2 <span class="op">*=</span> d <span class="op">/</span> <span class="bu">len</span>(ngram_dicts[i <span class="op">-</span> <span class="dv">1</span>]) <span class="op">*</span> (sec_dict[ngram_prefix] <span class="cf">if</span> ngram_prefix <span class="kw">in</span> sec_dict <span class="cf">else</span> <span class="dv">0</span>)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            prob_dict[prefix] <span class="op">=</span> prob_dict.get(prefix, [])</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            prob_dict[prefix].append([(<span class="dv">1</span> <span class="op">-</span> interpolation) <span class="op">*</span> (prob1 <span class="op">+</span> prob2) <span class="op">+</span> interpolation <span class="op">*</span> vocab_dict[ngram_tokens[<span class="op">-</span><span class="dv">1</span>]] <span class="op">/</span> <span class="bu">sum</span>(vocab_dict.values()), ngram_tokens[<span class="op">-</span><span class="dv">1</span>]])</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Completed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="2900c425" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> first:</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    bi_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    tri_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)            </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    quad_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)   </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    vocab_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)       </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    prob_dict <span class="op">=</span> OrderedDict()         </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    quad_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)   </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    token_len <span class="op">=</span> loadCorpus(<span class="st">"last.txt"</span>,bi_dict,tri_dict,quad_dict,vocab_dict)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    computeKnesserNeyProb2(vocab_dict, [bi_dict, tri_dict, quad_dict] ,prob_dict )</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    sortProbWordDict(prob_dict)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    first <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_words(text):</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    inp_time <span class="op">=</span> datetime.now()</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> text.split() <span class="op">==</span> [] <span class="kw">and</span> <span class="bu">len</span>(text.split())<span class="op">&gt;</span><span class="dv">0</span>:</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Input Text Found to be Empty."</span>)</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> removePunctuations(text)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> <span class="st">"&lt;start&gt; "</span><span class="op">+</span>text</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(text.split())<span class="op">&gt;</span><span class="dv">3</span>:</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        text <span class="op">=</span> text.split()</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        text <span class="op">=</span> <span class="st">" "</span>.join(text[<span class="op">-</span><span class="dv">3</span>:])</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    final_words <span class="op">=</span> doPrediction(text.lower(),prob_dict)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Word Prediction:'</span>,final_words)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    inp_proc_time <span class="op">=</span> datetime.now()</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'----------------------------Prediction Time :'</span>,inp_proc_time<span class="op">-</span>inp_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="start-of-the-code" class="level3">
+<h3 class="anchored" data-anchor-id="start-of-the-code">Start of The Code</h3>
+<p>The variable <code>bi_dict</code>, <code>tri_dict</code>, <code>quad_dict</code>, <code>prob_dict</code></p>
+<div id="c5d8d9aa" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>bi_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>tri_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)            </span>
+<span id="cb6-3"><a href="#cb6-3"></a>quad_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)   </span>
+<span id="cb6-4"><a href="#cb6-4"></a>vocab_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)       </span>
+<span id="cb6-5"><a href="#cb6-5"></a>prob_dict <span class="op">=</span> OrderedDict()         </span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>quad_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)   </span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a>token_len <span class="op">=</span> loadCorpus(<span class="st">"last.txt"</span>,bi_dict,tri_dict,quad_dict,vocab_dict)</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a>computeKnesserNeyProbablity(vocab_dict, [bi_dict, tri_dict, quad_dict] ,prob_dict )</span>
+<span id="cb6-12"><a href="#cb6-12"></a>sortProbWordDict(prob_dict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>  0%|          | 0/9845 [00:00&lt;?, ?it/s] 50%|████▉     | 4877/9845 [00:00&lt;00:00, 48764.35it/s]100%|██████████| 9845/9845 [00:00&lt;00:00, 58770.09it/s]
-  0%|          | 0/19829 [00:00&lt;?, ?it/s] 32%|███▏      | 6373/19829 [00:00&lt;00:00, 63724.74it/s] 68%|██████▊   | 13448/19829 [00:00&lt;00:00, 67851.53it/s]100%|██████████| 19829/19829 [00:00&lt;00:00, 69421.06it/s]
-  0%|          | 0/23911 [00:00&lt;?, ?it/s] 33%|███▎      | 7818/23911 [00:00&lt;00:00, 78159.95it/s] 65%|██████▌   | 15649/23911 [00:00&lt;00:00, 78244.41it/s] 98%|█████████▊| 23474/23911 [00:00&lt;00:00, 72911.51it/s]100%|██████████| 23911/23911 [00:00&lt;00:00, 69776.47it/s]</code></pre>
+<pre><code>  0%|          | 0/9845 [00:00&lt;?, ?it/s] 78%|███████▊  | 7685/9845 [00:00&lt;00:00, 76837.80it/s]100%|██████████| 9845/9845 [00:00&lt;00:00, 76344.95it/s]
+  0%|          | 0/19829 [00:00&lt;?, ?it/s] 37%|███▋      | 7263/19829 [00:00&lt;00:00, 72617.95it/s] 74%|███████▍  | 14642/19829 [00:00&lt;00:00, 73302.86it/s]100%|██████████| 19829/19829 [00:00&lt;00:00, 73289.89it/s]
+  0%|          | 0/23911 [00:00&lt;?, ?it/s] 30%|███       | 7281/23911 [00:00&lt;00:00, 72803.13it/s] 61%|██████    | 14562/23911 [00:00&lt;00:00, 57994.40it/s] 88%|████████▊ | 21037/23911 [00:00&lt;00:00, 60700.03it/s]100%|██████████| 23911/23911 [00:00&lt;00:00, 60105.69it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Completed</code></pre>
@@ -493,25 +423,59 @@ Image From Internet
 <pre><code></code></pre>
 </div>
 </div>
-<div id="d0843376" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"Hi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="predction-function" class="level3">
+<h3 class="anchored" data-anchor-id="predction-function">Predction Function</h3>
+<p>The function <code>get_words()</code> takes the text from the user and, check if given string is Empty, is more then three characthers.</p>
+<p>Adds a <code>&lt;start&gt;</code> tag to the input, marking it as start of the input. The function</p>
+<div id="a95d101b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> get_words(text):</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    inp_time <span class="op">=</span> datetime.now()</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="cf">if</span> text.split() <span class="op">==</span> [] <span class="kw">and</span> <span class="bu">len</span>(text.split())<span class="op">&gt;</span><span class="dv">0</span>:</span>
+<span id="cb10-4"><a href="#cb10-4"></a>        <span class="bu">print</span>(<span class="st">"Input Text Found to be Empty."</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    text <span class="op">=</span> removePunctuations(text)</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    text <span class="op">=</span> <span class="st">"&lt;start&gt; "</span><span class="op">+</span>text</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="cf">if</span> <span class="bu">len</span>(text.split())<span class="op">&gt;</span><span class="dv">3</span>:</span>
+<span id="cb10-8"><a href="#cb10-8"></a>        text <span class="op">=</span> text.split()</span>
+<span id="cb10-9"><a href="#cb10-9"></a>        text <span class="op">=</span> <span class="st">" "</span>.join(text[<span class="op">-</span><span class="dv">3</span>:])</span>
+<span id="cb10-10"><a href="#cb10-10"></a>        </span>
+<span id="cb10-11"><a href="#cb10-11"></a>    final_words <span class="op">=</span> doPrediction(text.lower(),prob_dict)</span>
+<span id="cb10-12"><a href="#cb10-12"></a></span>
+<span id="cb10-13"><a href="#cb10-13"></a>    <span class="bu">print</span>(<span class="st">'Word Prediction:'</span>,final_words)</span>
+<span id="cb10-14"><a href="#cb10-14"></a>    inp_proc_time <span class="op">=</span> datetime.now()</span>
+<span id="cb10-15"><a href="#cb10-15"></a>    <span class="bu">print</span>(<span class="st">'----------------------------Prediction Time :'</span>,inp_proc_time<span class="op">-</span>inp_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generating-response-1" class="level3">
+<h3 class="anchored" data-anchor-id="generating-response-1">Generating Response 1</h3>
+<p>Resposne for “Hi”.</p>
+<div id="b18610dc" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>get_words(<span class="st">"Hi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[0.9761837911670966, 'how'], [0.6773237382168934, 'what']]
-----------------------------Prediction Time : 0:00:00.000096</code></pre>
+----------------------------Prediction Time : 0:00:00.000178</code></pre>
 </div>
 </div>
-<div id="7dbbffb5" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"good Morning"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="generating-response-2" class="level3">
+<h3 class="anchored" data-anchor-id="generating-response-2">Generating Response 2</h3>
+<p>Response for “Good Morning”.</p>
+<div id="9165b199" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>get_words(<span class="st">"good Morning"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[0.15004384411729987, 'team']]
-----------------------------Prediction Time : 0:00:00.000115</code></pre>
+----------------------------Prediction Time : 0:00:00.000303</code></pre>
 </div>
 </div>
-<div id="12bdafa8" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>get_words(<span class="st">"What are"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="generating-response-3" class="level3">
+<h3 class="anchored" data-anchor-id="generating-response-3">Generating Response 3</h3>
+<p>Let’s check the output for “What are”.</p>
+<div id="acaf2d3e" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>get_words(<span class="st">"What are"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[1.719622097435119, 'you'], [0.5116390954621338, 'we']]
-----------------------------Prediction Time : 0:00:00.000095</code></pre>
+----------------------------Prediction Time : 0:00:00.000167</code></pre>
 </div>
 </div>
 
