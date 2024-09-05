@@ -8,7 +8,7 @@ website:
   title: "Abhijit Darekar"
   search: false
   favicon: pages/images/favicon2.png
-  # google-analytics: "G-Z56QPM4BST"
+  google-analytics: "G-Z56QPM4BST"
 
   navbar:
     

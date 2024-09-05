@@ -31,7 +31,8 @@ about:
       href: "pages/docs/Abhijit Darekar- ML Engineer@ Skycliffit.pdf"
       text: Resume
 ---
-## About Me 
+
+### About Me 
 <p style="text-align:justify">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I have diverse knowledge in Machine Learning and Deep Learning field. I have worked on various projects from showcasing in POC to deploying them in prodution. I have through knwoledge on ML Algorihtm, DL Archiectures, cloud Services such as Azure OpenAI, AWS SageMaker, AWS Lambda Funcions, AWS Api Route, AWS ECR & EC2 and Github Actions for CI/CD.
 </p>

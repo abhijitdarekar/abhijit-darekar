@@ -89,6 +89,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z56QPM4BST"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z56QPM4BST', { 'anonymize_ip': true});
+</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -217,7 +226,7 @@ Image From Internet
 <section id="importing-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="importing-libraries">Importing Libraries</h3>
 <p>I will be using <code>ngram</code>from <code>nltk</code> library to create a</p>
-<div id="b7b72e78" class="cell" data-execution_count="1">
+<div id="b7b72e78" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> string</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> nltk.util <span class="im">import</span> ngrams</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">from</span> collections <span class="im">import</span> OrderedDict, defaultdict</span>
@@ -227,7 +236,7 @@ Image From Internet
 </section>
 <section id="loading-data" class="level3">
 <h3 class="anchored" data-anchor-id="loading-data">Loading Data</h3>
-<div id="d6e21b43" class="cell" data-execution_count="2">
+<div id="d6e21b43" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> loadCorpus(file_path, bi_dict, tri_dict, quad_dict, vocab_dict):</span>
 <span id="cb2-2"><a href="#cb2-2"></a>    token <span class="op">=</span> []</span>
 <span id="cb2-3"><a href="#cb2-3"></a>    word_len <span class="op">=</span> <span class="dv">0</span></span>
@@ -295,7 +304,7 @@ Image From Internet
 </section>
 <section id="generating-kneeser-ney-dictonaries" class="level3">
 <h3 class="anchored" data-anchor-id="generating-kneeser-ney-dictonaries">Generating Kneeser-Ney Dictonaries</h3>
-<div id="809a1cc8" class="cell" data-execution_count="3">
+<div id="809a1cc8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> createKNDict(ngram_dict, n):</span>
 <span id="cb3-2"><a href="#cb3-2"></a></span>
 <span id="cb3-3"><a href="#cb3-3"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
@@ -326,7 +335,7 @@ Image From Internet
 </section>
 <section id="creating-kneeser-ney-probablities-dictonary" class="level3">
 <h3 class="anchored" data-anchor-id="creating-kneeser-ney-probablities-dictonary">Creating Kneeser-Ney Probablities Dictonary</h3>
-<div id="a06db201" class="cell" data-execution_count="4">
+<div id="a06db201" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> computeKnesserNeyProbablity(vocab_dict, ngram_dicts, prob_dict):</span>
 <span id="cb4-2"><a href="#cb4-2"></a>    d <span class="op">=</span> <span class="fl">0.75</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>    interpolation <span class="op">=</span> <span class="fl">0.4</span>  <span class="co"># Adjust as needed</span></span>
@@ -355,7 +364,7 @@ Image From Internet
 </section>
 <section id="utilites-function" class="level3">
 <h3 class="anchored" data-anchor-id="utilites-function">Utilites Function</h3>
-<div id="1b12a81f" class="cell" data-execution_count="5">
+<div id="1b12a81f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">def</span> sortProbWordDict(prob_dict):</span>
 <span id="cb5-2"><a href="#cb5-2"></a>    <span class="cf">for</span> key <span class="kw">in</span> prob_dict:</span>
 <span id="cb5-3"><a href="#cb5-3"></a>        <span class="cf">if</span> <span class="bu">len</span>(prob_dict[key])<span class="op">&gt;</span><span class="dv">0</span>:</span>
@@ -398,7 +407,7 @@ Image From Internet
 <section id="start-of-the-code" class="level3">
 <h3 class="anchored" data-anchor-id="start-of-the-code">Start of The Code</h3>
 <p>The variable <code>bi_dict</code>, <code>tri_dict</code>, <code>quad_dict</code>, <code>prob_dict</code></p>
-<div id="c5d8d9aa" class="cell" data-execution_count="6">
+<div id="c5d8d9aa" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>bi_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
 <span id="cb6-2"><a href="#cb6-2"></a>tri_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)            </span>
 <span id="cb6-3"><a href="#cb6-3"></a>quad_dict <span class="op">=</span> defaultdict(<span class="bu">int</span>)   </span>
@@ -428,7 +437,7 @@ Image From Internet
 <h3 class="anchored" data-anchor-id="predction-function">Predction Function</h3>
 <p>The function <code>get_words()</code> takes the text from the user and, check if given string is Empty, is more then three characthers.</p>
 <p>Adds a <code>&lt;start&gt;</code> tag to the input, marking it as start of the input. The function</p>
-<div id="a95d101b" class="cell" data-execution_count="7">
+<div id="a95d101b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> get_words(text):</span>
 <span id="cb10-2"><a href="#cb10-2"></a>    inp_time <span class="op">=</span> datetime.now()</span>
 <span id="cb10-3"><a href="#cb10-3"></a>    <span class="cf">if</span> text.split() <span class="op">==</span> [] <span class="kw">and</span> <span class="bu">len</span>(text.split())<span class="op">&gt;</span><span class="dv">0</span>:</span>
@@ -449,7 +458,7 @@ Image From Internet
 <section id="generating-response-1" class="level3">
 <h3 class="anchored" data-anchor-id="generating-response-1">Generating Response 1</h3>
 <p>Resposne for “Hi”.</p>
-<div id="b18610dc" class="cell" data-execution_count="8">
+<div id="b18610dc" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>get_words(<span class="st">"Hi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[0.9761837911670966, 'how'], [0.6773237382168934, 'what']]
@@ -460,7 +469,7 @@ Image From Internet
 <section id="generating-response-2" class="level3">
 <h3 class="anchored" data-anchor-id="generating-response-2">Generating Response 2</h3>
 <p>Response for “Good Morning”.</p>
-<div id="9165b199" class="cell" data-execution_count="9">
+<div id="9165b199" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>get_words(<span class="st">"good Morning"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[0.15004384411729987, 'team']]
@@ -471,7 +480,7 @@ Image From Internet
 <section id="generating-response-3" class="level3">
 <h3 class="anchored" data-anchor-id="generating-response-3">Generating Response 3</h3>
 <p>Let’s check the output for “What are”.</p>
-<div id="acaf2d3e" class="cell" data-execution_count="10">
+<div id="acaf2d3e" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>get_words(<span class="st">"What are"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Word Prediction: [[1.719622097435119, 'you'], [0.5116390954621338, 'we']]
